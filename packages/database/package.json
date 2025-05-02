@@ -1,0 +1,22 @@
+{
+	"name": "database",
+	"scripts": {
+		"push": "npx drizzle-kit push",
+		"generate": "npx drizzle-kit generate",
+		"migrate": "npx drizzle-kit migrate",
+		"seed": "node dist/seed.js",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"dotenv": "catalog:",
+		"drizzle-kit": "^0.31.0",
+		"drizzle-orm": "^0.43.1",
+		"drizzle-zod": "^0.7.1",
+		"pg": "^8.15.6",
+		"zod": "^3.24.3",
+		"typescript": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:types"
+	}
+}

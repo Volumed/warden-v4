@@ -1,0 +1,28 @@
+{
+	"name": "warden",
+	"version": "0.0.0",
+	"author": "Volumed",
+	"description": "Warden is a Discord bot that helps you manage your server.",
+	"type": "module",
+	"packageManager": "pnpm@10.10.0",
+	"scripts": {
+		"db:push": "pnpm --filter database run push",
+		"db:generate": "pnpm --filter database run generate",
+		"db:migrate": "pnpm --filter database run migrate",
+		"db:seed": "pnpm --filter database run seed",
+		"db:build": "pnpm --filter database run build",
+		"start:bot": "pnpm --filter discord run start:bot",
+		"start:rest": "pnpm --filter discord run start:rest",
+		"start:gateway": "pnpm --filter discord run start:gateway",
+		"build": "pnpm --filter discord run build",
+		"build:watch": "pnpm --filter discord run build:watch",
+		"dev:bot": "pnpm --filter discord run dev:bot",
+		"dev:rest": "pnpm --filter discord run dev:rest",
+		"dev:gateway": "pnpm --filter discord run dev:gateway"
+	},
+	"dependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"husky": "^9.1.7",
+		"tsx": "^4.19.4"
+	}
+}

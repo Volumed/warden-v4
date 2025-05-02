@@ -1,0 +1,11 @@
+packages:
+  - packages/*
+  - apps/*
+
+catalog:
+  "dotenv": ^16.5.0
+  "typescript": ^5.8.3
+
+catalogs:
+  types:
+    "@types/node": ^22.15.3
