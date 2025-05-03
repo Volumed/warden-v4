@@ -18,7 +18,8 @@
 		"build:watch": "pnpm --filter discord run build:watch",
 		"dev:bot": "pnpm --filter discord run dev:bot",
 		"dev:rest": "pnpm --filter discord run dev:rest",
-		"dev:gateway": "pnpm --filter discord run dev:gateway"
+		"dev:gateway": "pnpm --filter discord run dev:gateway",
+		"register": "pnpm --filter discord run register"
 	},
 	"dependencies": {
 		"@biomejs/biome": "^1.9.4",

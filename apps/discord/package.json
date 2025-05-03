@@ -15,7 +15,8 @@
 		"build:watch": "tsc --watch",
 		"dev:bot": "node --watch --watch-preserve-output dist/bot/index.js",
 		"dev:rest": "node --watch --watch-preserve-output dist/rest/index.js",
-		"dev:gateway": "node --watch --watch-preserve-output dist/gateway/index.js"
+		"dev:gateway": "node --watch --watch-preserve-output dist/gateway/index.js",
+		"register": "node dist/bot/register-commands.js"
 	},
 	"dependencies": {
 		"@discordeno/bot": "21.0.0",

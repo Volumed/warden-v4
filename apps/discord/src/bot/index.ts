@@ -11,16 +11,11 @@ import {
 	MESSAGEQUEUE_PASSWORD,
 	MESSAGEQUEUE_URL,
 	MESSAGEQUEUE_USERNAME,
-	REGISTER_COMMANDS,
 } from "../config.js";
 import { getDirnameFromFileUrl } from "../util.js";
 import { bot } from "./bot.js";
 import { buildFastifyApp } from "./fastify.js";
 import importDirectory from "./utils/loader.js";
-
-if (REGISTER_COMMANDS) {
-	await import("./register-commands.js");
-}
 
 // The importDirectory function uses 'readdir' that requires either a relative path compared to the process CWD or an absolute one, so to get one relative we need to use import.meta.url
 const currentDirectory = getDirnameFromFileUrl(import.meta.url);

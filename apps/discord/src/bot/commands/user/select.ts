@@ -20,7 +20,6 @@ const randomConfigs = {
 createCommand({
 	name: "select",
 	description: "Lorem ipsum dolor sit amet.",
-	type: ApplicationCommandTypes.ChatInput,
 	async run(interaction) {
 		const menu = {
 			type: MessageComponentTypes.SelectMenu as MessageComponentTypes.SelectMenu,

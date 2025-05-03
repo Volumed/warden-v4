@@ -44,6 +44,14 @@
 		}
 	},
 	"files": {
+		"include": [
+			"**/*.js",
+			"**/*.ts",
+			"**/*.json",
+			"**/*.md",
+			"**/*.yml",
+			"**/*.yaml"
+		],
 		"ignore": ["package.json", "node_modules", "dist"],
 		"ignoreUnknown": true
 	}

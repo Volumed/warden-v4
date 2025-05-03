@@ -24,8 +24,6 @@ export const EVENT_HANDLER_PORT = parseNumber(
 export const BUGS_ERRORS_REPORT_WEBHOOK =
 	process.env.BUGS_ERRORS_REPORT_WEBHOOK;
 
-export const REGISTER_COMMANDS = process.env.REGISTER_COMMANDS === "true";
-
 // Rest Proxy Configurations
 
 export const REST_AUTHORIZATION = assertEnv("REST_AUTHORIZATION");
