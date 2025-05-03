@@ -47,7 +47,6 @@ export const usersRelations = relations(users, ({ many }) => ({
 export const zUserSchema = createInsertSchema(users)
 	.extend({
 		id: z.string(),
-		type: z.enum(["OTHER", "LEAKER", "CHEATER", "SUPPORTER", "OWNER", "BOT"]),
 	})
 	.required();
 

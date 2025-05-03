@@ -47,9 +47,6 @@ export const badServersRelations = relations(badServers, ({ many }) => ({
 
 export const zBadServerSchema = createInsertSchema(badServers)
 	.extend({
-		id: z.string().optional(),
-		name: z.string().min(1).max(255),
-		type: z.enum(["CHEATING", "LEAKING", "RESELLING", "ADVERTISING", "OTHER"]),
 		oldNames: z.array(z.string()),
 	})
 	.required();

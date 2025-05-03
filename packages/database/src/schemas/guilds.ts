@@ -45,7 +45,6 @@ export const guildsRelations = relations(guilds, ({ one }) => ({
 export const zGuildSchema = createInsertSchema(guilds)
 	.extend({
 		id: z.string(),
-		name: z.string().min(1).max(255),
 	})
 	.required();
 

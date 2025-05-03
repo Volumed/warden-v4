@@ -61,8 +61,6 @@ export const zImportSchema = createInsertSchema(imports)
 	.extend({
 		userId: z.string(),
 		serverId: z.string(),
-		roles: z.array(z.string()),
-		type: z.enum(["OTHER", "LEAKER", "CHEATER", "SUPPORTER", "OWNER", "BOT"]),
 	})
 	.required();
 

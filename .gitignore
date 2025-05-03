@@ -79,6 +79,8 @@ $RECYCLE.BIN/
 
 # Project
 node_modules
+packages/database/migrations/*
+!packages/database/migrations/.gitkeep
 packages/database/drizzle/*
 !packages/database/drizzle/.gitkeep
 dist

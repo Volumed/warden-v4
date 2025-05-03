@@ -1,8 +1,8 @@
 import {
 	findAllImportsByUserId,
 	findAllImportsByUserIdNotAppealed,
-} from "database/dist/functions/imports.js";
-import { findUserById } from "database/dist/functions/users.js";
+} from "database/dist/index.js";
+import { findUserById } from "database/dist/index.js";
 
 export interface User {
 	id: string;
@@ -10,7 +10,7 @@ export interface User {
 }
 
 export interface ImportItem {
-	type: "OTHER" | "LEAKER" | "CHEATER" | "SUPPORTER" | "OWNER" | "BOT"; // Update to use specific string literals
+	type: "OTHER" | "LEAKER" | "CHEATER" | "SUPPORTER" | "OWNER" | "BOT";
 	createdBy: string;
 	updatedBy: string;
 	createdAt: Date;

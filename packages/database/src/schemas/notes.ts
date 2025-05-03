@@ -48,8 +48,6 @@ export const notesRelations = relations(notes, ({ one }) => ({
 export const zNoteSchema = createInsertSchema(notes)
 	.extend({
 		user_id: z.string(),
-		userId: z.string(),
-		note: z.string().min(1).max(255),
 	})
 	.required();
 
