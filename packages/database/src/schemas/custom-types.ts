@@ -35,6 +35,7 @@ export const serverType = pgEnum("server_type", [
 	"CHEATING",
 	"LEAKING",
 	"RESELLING",
+	"HACKING",
 	"ADVERTISING",
 	"OTHER",
 ] as const);

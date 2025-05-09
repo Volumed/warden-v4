@@ -1,3 +1,4 @@
+import { count } from "drizzle-orm";
 import { eq } from "drizzle-orm/pg-core/expressions";
 
 import { db } from "../database";
@@ -29,6 +30,14 @@ export async function findNotesByUserId(userId: string) {
 	return db.query.notes.findMany({
 		where: eq(notes.userId, userId),
 	});
+}
+
+export async function countNotesByUserId(userId: string) {
+	const noteCount = await db
+		.select({ count: count() })
+		.from(notes)
+		.where(eq(notes.userId, userId));
+	return noteCount[0]?.count ?? 0;
 }
 
 /**

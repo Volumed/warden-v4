@@ -20,7 +20,17 @@ import {
  * @returns The import objects
  */
 export async function findAllImportsByUserId(userId: string) {
-	return db.query.imports.findMany({ where: eq(imports.userId, userId) });
+	return db.query.imports.findMany({
+		where: eq(imports.userId, userId),
+		with: {
+			badServer: {
+				columns: {
+					name: true,
+					type: true,
+				},
+			},
+		},
+	});
 }
 
 /**

@@ -1,4 +1,6 @@
 import type { EmbedField } from "@discordeno/bot";
+import { applicationIconUrl } from "@discordeno/bot";
+import { bot, botAvatarHash } from "../bot.js";
 
 const colors = {
 	blue: 0xb7c9cf, // #b7c9cf
@@ -36,6 +38,7 @@ const embedBuilder = (
 		timestamp: new Date().toISOString(),
 		footer: {
 			text: "Warden",
+			icon_url: applicationIconUrl(bot.applicationId, botAvatarHash),
 		},
 	};
 };

@@ -4,4 +4,9 @@ declare module "database/dist/index.js" {
 	export function findAllImportsByUserIdNotAppealed(
 		id: string,
 	): Promise<{ id: string }>;
+	export function countNotesByUserId(id: string): Promise<{ id: string }>;
+	export function checkDbConnection(): Promise<{
+		connected: boolean;
+		latency: number | null;
+	}>;
 }

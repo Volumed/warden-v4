@@ -1,13 +1,32 @@
 import {
 	InteractionTypes,
 	LogLevels,
+	MessageComponentTypes,
 	commandOptionsParser,
-	type logger,
 } from "@discordeno/bot";
+import type { Interaction, logger } from "@discordeno/bot";
 import chalk from "chalk";
 import { bot } from "../../bot.js";
+import { checkUserAdminEmbed } from "../../commands/admin/checkUserAdmin.js";
 
 bot.events.interactionCreate = async (interaction) => {
+	if (
+		interaction.type === InteractionTypes.MessageComponent &&
+		interaction.data?.componentType === MessageComponentTypes.Button
+	) {
+		if (!interaction.data?.customId?.startsWith("checkuseradmin-")) return;
+		if (!interaction.guildId || !interaction.member) return;
+		const direction = interaction.data.customId.split("-")[1];
+		const interactionId = interaction.data.customId.split("-")[2];
+		const userId = interaction.data.customId.split("-")[3];
+		checkUserAdminEmbed(
+			interaction as unknown as Interaction,
+			userId,
+			interactionId,
+			direction,
+		);
+	}
+
 	const isAutocomplete =
 		interaction.type === InteractionTypes.ApplicationCommandAutocomplete;
 	const isCommandOrAutocomplete =

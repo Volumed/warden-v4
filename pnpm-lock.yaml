@@ -57,6 +57,9 @@ importers:
       fastify:
         specifier: ^5.3.2
         version: 5.3.2
+      redis:
+        specifier: ^5.0.0
+        version: 5.0.0
     devDependencies:
       '@types/amqplib':
         specifier: ^0.10.6
@@ -64,6 +67,9 @@ importers:
       '@types/node':
         specifier: ^22.10.2
         version: 22.15.3
+      '@types/redis':
+        specifier: ^4.0.11
+        version: 4.0.11
       chokidar:
         specifier: ^3.6.0
         version: 3.6.0
@@ -492,11 +498,43 @@ packages:
   '@influxdata/influxdb-client@1.35.0':
     resolution: {integrity: sha512-woWMi8PDpPQpvTsRaUw4Ig+nOGS/CWwAwS66Fa1Vr/EkW+NEwxI8YfPBsdBMn33jK2Y86/qMiiuX/ROHIkJLTw==}
 
+  '@redis/bloom@5.0.0':
+    resolution: {integrity: sha512-YHlra6a7+brJ3Ustqa+jC68Pdnw2/wbnVLeULN0llP3gHpKxOSmiDyLwuHq5t/jFi6QUgjSprUQi2a8CieKFIA==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@redis/client': ^5.0.0
+
+  '@redis/client@5.0.0':
+    resolution: {integrity: sha512-1MqfzOOoFBwWprigJ3S5hM+LuzaWwxyyx+74NDzCpmjKWyjjC07xkWsd5E9fr+61NUDtvUivRiyAxGiRIwJCaQ==}
+    engines: {node: '>= 18'}
+
+  '@redis/json@5.0.0':
+    resolution: {integrity: sha512-8YFjshsvWR9dWjOiQ50TfBxfl+z1mjCae8jDnfOYN1aCvUZWJXqM1OpL56v6mWRyXwZ5C9qJJKDGmHTr4PVskQ==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@redis/client': ^5.0.0
+
+  '@redis/search@5.0.0':
+    resolution: {integrity: sha512-oEop/S/0NB5p7vpTTlp5X5LQO4oTomJnFEOaKhQ5xZWROLXTgEVvPSfXVNBbtr9maU2+OupxXQR63HW3MGeTUg==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@redis/client': ^5.0.0
+
+  '@redis/time-series@5.0.0':
+    resolution: {integrity: sha512-DNsP4DH5CRfXlQDyvLJm2DltZm3kjpVKZsNTI3SPdbRxhc9i2c0NehUbM/gDECnEfG+jkNN/LUv6Em4LaLwPBQ==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@redis/client': ^5.0.0
+
   '@types/amqplib@0.10.7':
     resolution: {integrity: sha512-IVj3avf9AQd2nXCx0PGk/OYq7VmHiyNxWFSb5HhU9ATh+i+gHWvVcljFTcTWQ/dyHJCTrzCixde+r/asL2ErDA==}
 
   '@types/node@22.15.3':
     resolution: {integrity: sha512-lX7HFZeHf4QG/J7tBZqrCAXwz9J5RD56Y6MpP0eJkka8p+K0RY/yBTW7CYFJ4VGCclxqOLKmiGP5juQc6MKgcw==}
+
+  '@types/redis@4.0.11':
+    resolution: {integrity: sha512-bI+gth8La8Wg/QCR1+V1fhrL9+LZUSWfcqpOj2Kc80ZQ4ffbdL173vQd5wovmoV9i071FU9oP2g6etLuEwb6Rg==}
+    deprecated: This is a stub types definition. redis provides its own type definitions, so you do not need this installed.
 
   abstract-logging@2.0.1:
     resolution: {integrity: sha512-2BjRTZxTPvheOvGbBslFSYOUkr+SjPtOnrLP33f+VIWLzezQpZcqVg7ja3L4dBXmzzgwT+a029jRx5PCi3JuiA==}
@@ -548,6 +586,10 @@ packages:
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
+
+  cluster-key-slot@1.1.2:
+    resolution: {integrity: sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA==}
+    engines: {node: '>=0.10.0'}
 
   cookie@1.0.2:
     resolution: {integrity: sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==}
@@ -863,6 +905,10 @@ packages:
   real-require@0.2.0:
     resolution: {integrity: sha512-57frrGM/OCTLqLOAh0mhVA9VBMHd+9U7Zb2THMGdBUoZVOtGbJzjxsYGDJ3A9AYYCP4hn6y1TVbaOfzWtm5GFg==}
     engines: {node: '>= 12.13.0'}
+
+  redis@5.0.0:
+    resolution: {integrity: sha512-J/fzf0cYeFw5NP4aYIvv9owYOcNUsaDqF4qmwbSuaV4yKBLaIHJQIFbAKLgjn99GDXdJBbfqCRXE7+BIlkpATA==}
+    engines: {node: '>= 18'}
 
   require-from-string@2.0.2:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
@@ -1225,6 +1271,26 @@ snapshots:
 
   '@influxdata/influxdb-client@1.35.0': {}
 
+  '@redis/bloom@5.0.0(@redis/client@5.0.0)':
+    dependencies:
+      '@redis/client': 5.0.0
+
+  '@redis/client@5.0.0':
+    dependencies:
+      cluster-key-slot: 1.1.2
+
+  '@redis/json@5.0.0(@redis/client@5.0.0)':
+    dependencies:
+      '@redis/client': 5.0.0
+
+  '@redis/search@5.0.0(@redis/client@5.0.0)':
+    dependencies:
+      '@redis/client': 5.0.0
+
+  '@redis/time-series@5.0.0(@redis/client@5.0.0)':
+    dependencies:
+      '@redis/client': 5.0.0
+
   '@types/amqplib@0.10.7':
     dependencies:
       '@types/node': 22.15.3
@@ -1232,6 +1298,10 @@ snapshots:
   '@types/node@22.15.3':
     dependencies:
       undici-types: 6.21.0
+
+  '@types/redis@4.0.11':
+    dependencies:
+      redis: 5.0.0
 
   abstract-logging@2.0.1: {}
 
@@ -1286,6 +1356,8 @@ snapshots:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.3
+
+  cluster-key-slot@1.1.2: {}
 
   cookie@1.0.2: {}
 
@@ -1558,6 +1630,14 @@ snapshots:
       picomatch: 2.3.1
 
   real-require@0.2.0: {}
+
+  redis@5.0.0:
+    dependencies:
+      '@redis/bloom': 5.0.0(@redis/client@5.0.0)
+      '@redis/client': 5.0.0
+      '@redis/json': 5.0.0(@redis/client@5.0.0)
+      '@redis/search': 5.0.0(@redis/client@5.0.0)
+      '@redis/time-series': 5.0.0(@redis/client@5.0.0)
 
   require-from-string@2.0.2: {}
 

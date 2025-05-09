@@ -27,3 +27,15 @@ export const formatUserTypes = (imports: ImportItem[]) => {
 		),
 	).sort((a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b));
 };
+
+export const formatUserType = (value: string) => {
+	const typeMap: Record<string, string> = {
+		OTHER: "Other",
+		LEAKER: "Leaker",
+		CHEATER: "Cheater",
+		SUPPORTER: "Supporter",
+		OWNER: "Owner",
+	};
+
+	return typeMap[value] || value.charAt(0).toUpperCase() + value.slice(1);
+};

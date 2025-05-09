@@ -6,7 +6,7 @@ import "dotenv/config";
 // General Configurations
 
 export const DEVELOPMENT = process.env.DEVELOPMENT === "true";
-export const DEV_SERVER_ID = process.env.DEV_SERVER_ID;
+export const MAIN_SERVER_ID = process.env.MAIN_SERVER_ID;
 export const DISCORD_TOKEN = assertEnv("DISCORD_TOKEN");
 
 // Bot Configuration

@@ -15,6 +15,7 @@ import {
 import { getDirnameFromFileUrl } from "../util.js";
 import { bot } from "./bot.js";
 import { buildFastifyApp } from "./fastify.js";
+import { checkRedisHealth } from "./redis/redis-client.js";
 import importDirectory from "./utils/loader.js";
 
 // The importDirectory function uses 'readdir' that requires either a relative path compared to the process CWD or an absolute one, so to get one relative we need to use import.meta.url
@@ -137,6 +138,8 @@ async function connectToRabbitMQ(): Promise<void> {
 		})
 		.catch(bot.logger.error);
 }
+
+checkRedisHealth();
 
 interface GatewayEvent {
 	payload: DiscordGatewayPayload;

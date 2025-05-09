@@ -23,7 +23,7 @@ export type Command<TOptions extends CommandOptions = CommandOptions> =
 		 *
 		 * @default false
 		 */
-		devOnly?: boolean;
+		mainOnly?: boolean;
 		/** Function to run when the interaction is executed */
 		run: (
 			interaction: typeof bot.transformers.$inferredTypes.interaction,
