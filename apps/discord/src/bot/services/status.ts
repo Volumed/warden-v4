@@ -45,10 +45,8 @@ const statusEmbed = async () => {
 		},
 		{
 			inline: false,
-			name: "Last & Next Update",
-			value: `> Last update <t:${Math.floor(
-				lastUpdateTime / 1000,
-			)}:R>\n > Next update <t:${Math.floor(nextUpdateTime / 1000)}:R>`,
+			name: "Next Update",
+			value: `> Next update <t:${Math.floor(nextUpdateTime / 1000)}:R>`,
 		},
 	];
 
