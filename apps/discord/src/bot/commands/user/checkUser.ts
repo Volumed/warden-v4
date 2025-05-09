@@ -2,7 +2,7 @@ import type { Interaction } from "@discordeno/bot";
 import type { User } from "@discordeno/bot";
 import { bot } from "../../bot.js";
 import createCommand from "../../commands.js";
-import { en } from "../../locales/en.js";
+import { en } from "../../locales/index.js";
 import embedBuilder from "../../utils/embed.js";
 import { formatStatus } from "../../utils/format-status.js";
 import { formatUserTypes } from "../../utils/format-user.js";
