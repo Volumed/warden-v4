@@ -1,3 +1,4 @@
+import { count } from "drizzle-orm";
 import { eq } from "drizzle-orm/pg-core/expressions";
 
 import { db } from "../database";
@@ -31,6 +32,15 @@ export async function getBadServers(limit: number, offset: number) {
 	});
 
 	return result;
+}
+
+/**
+ * Get the total number of bad servers
+ * @returns The total number of bad servers
+ */
+export async function countBadServers() {
+	const noteCount = await db.select({ count: count() }).from(badServers);
+	return noteCount[0]?.count ?? 0;
 }
 
 /**

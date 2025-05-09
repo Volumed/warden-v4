@@ -8,6 +8,7 @@ import "dotenv/config";
 export const DEVELOPMENT = process.env.DEVELOPMENT === "true";
 export const MAIN_SERVER_ID = process.env.MAIN_SERVER_ID;
 export const DISCORD_TOKEN = assertEnv("DISCORD_TOKEN");
+export const STATUS_CHANNEL_ID = process.env.STATUS_CHANNEL_ID;
 
 // Bot Configuration
 

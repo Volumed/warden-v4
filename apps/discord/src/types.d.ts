@@ -9,4 +9,6 @@ declare module "database/dist/index.js" {
 		connected: boolean;
 		latency: number | null;
 	}>;
+	export function countBadServers(): Promise<{ count: number }>;
+	export function countBlacklistedUsers(): Promise<{ count: number }>;
 }

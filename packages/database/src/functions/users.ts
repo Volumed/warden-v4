@@ -1,4 +1,5 @@
-import { eq } from "drizzle-orm/pg-core/expressions";
+import { count } from "drizzle-orm";
+import { eq, or } from "drizzle-orm/pg-core/expressions";
 
 import { db } from "../database";
 import {
@@ -18,6 +19,20 @@ export async function findUserById(id: string) {
 	return db.query.users.findFirst({
 		where: eq(users.id, id),
 	});
+}
+
+/**
+ * Get the total number of blacklisted users
+ * @returns The total number of blacklisted users
+ */
+export async function countBlacklistedUsers() {
+	const noteCount = await db
+		.select({ count: count() })
+		.from(users)
+		.where(
+			or(eq(users.status, "BLACKLISTED"), eq(users.status, "PERM_BLACKLISTED")),
+		);
+	return noteCount[0]?.count ?? 0;
 }
 
 /**
