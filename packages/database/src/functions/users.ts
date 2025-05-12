@@ -1,5 +1,5 @@
 import { count } from "drizzle-orm";
-import { eq, or } from "drizzle-orm/pg-core/expressions";
+import { eq, inArray, or } from "drizzle-orm/pg-core/expressions";
 
 import { db } from "../database";
 import {
@@ -18,6 +18,17 @@ import {
 export async function findUserById(id: string) {
 	return db.query.users.findFirst({
 		where: eq(users.id, id),
+	});
+}
+
+/**
+ * Find all users by their IDs
+ * @param ids - The IDs of the users to find
+ * @returns The user objects
+ */
+export async function findUserByIds(ids: string[]) {
+	return db.query.users.findMany({
+		where: inArray(users.id, ids),
 	});
 }
 

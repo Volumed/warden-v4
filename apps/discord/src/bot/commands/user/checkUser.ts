@@ -6,8 +6,8 @@ import { en } from "../../locales/index.js";
 import embedBuilder from "../../utils/embed.js";
 import { formatStatus } from "../../utils/format-status.js";
 import { formatUserTypes } from "../../utils/format-user.js";
-import { getUser } from "../../utils/get-user.js";
-import type { UserData } from "../../utils/get-user.js";
+import { getUser } from "../../utils/get.js";
+import type { UserData } from "../../utils/get.js";
 
 export const checkUserHandler = async (
 	interaction: Interaction,

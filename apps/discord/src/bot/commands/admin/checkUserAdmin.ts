@@ -10,10 +10,10 @@ import { formatServerType } from "../../utils/format-server.js";
 import { formatStatus } from "../../utils/format-status.js";
 import { formatUserType } from "../../utils/format-user.js";
 import { formatUserTypes } from "../../utils/format-user.js";
-import { getUser } from "../../utils/get-user.js";
-import type { UserData } from "../../utils/get-user.js";
+import { getUser } from "../../utils/get.js";
+import type { UserData } from "../../utils/get.js";
 
-interface Server {
+export interface Server {
 	serverId: string;
 	roles: string[];
 	type: string;
@@ -25,6 +25,22 @@ interface Server {
 		type: string;
 	};
 }
+
+export type Import = {
+	userId: string;
+	serverId: string;
+	roles: string[];
+	type: "OTHER" | "LEAKER" | "CHEATER" | "SUPPORTER" | "OWNER" | "BOT"; // Restrict to specific literals
+	appealed: boolean;
+	createdAt: string;
+	updatedAt: string;
+	createdBy: string | null;
+	updatedBy: string | null;
+	badServer: {
+		name: string;
+		type: string;
+	};
+};
 
 export const MAX = 5;
 
@@ -131,7 +147,7 @@ const checkUserAdminFields = (
 	parsedValue: {
 		result: {
 			userData: {
-				imports: Server[];
+				imports: Import[];
 				user: {
 					appeals: number;
 				};
@@ -359,22 +375,20 @@ export const checkUserAdminEmbed = async (
 export const checkUserAdmindisableEmbed = async (
 	interaction: Interaction,
 	userId: string,
-	totalPages: number,
+	interactionId: string,
 ) => {
 	// Set a timeout to delete the value after 10 minutes and disable the embed
-	if (totalPages !== 1) {
-		setTimeout(
-			async () => {
-				checkUserAdminEmbedDisable(
-					interaction as unknown as Interaction,
-					userId,
-					String(interaction.id),
-				);
-				await deleteValue(`user:${userId}:blacklist:${interaction.id}`);
-			},
-			10 * 60 * 1000,
-		);
-	}
+	setTimeout(
+		async () => {
+			checkUserAdminEmbedDisable(
+				interaction as unknown as Interaction,
+				userId,
+				String(interactionId),
+			);
+			await deleteValue(`user:${userId}:blacklist:${interactionId}`);
+		},
+		10 * 60 * 1000,
+	);
 };
 
 createCommand({
@@ -444,11 +458,10 @@ createCommand({
 			JSON.stringify({ result, page: 0 }),
 		);
 
-		const totalPages = Math.ceil(result.userData.imports.length / MAX);
 		checkUserAdmindisableEmbed(
 			interaction as unknown as Interaction,
 			userId,
-			totalPages,
+			String(interaction.id),
 		);
 
 		return await checkUserAdminEmbed(

@@ -48,11 +48,10 @@ createCommand({
 			JSON.stringify({ result, page: 0 }),
 		);
 
-		const totalPages = Math.ceil(result.userData.imports.length / MAX);
 		checkUserAdmindisableEmbed(
 			interaction as unknown as Interaction,
 			userId,
-			totalPages,
+			String(interaction.id),
 		);
 
 		return await checkUserAdminEmbed(

@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm/pg-core/expressions";
+import { and, eq, inArray } from "drizzle-orm/pg-core/expressions";
 
 import { db } from "../database";
 import {
@@ -22,6 +22,25 @@ import {
 export async function findAllImportsByUserId(userId: string) {
 	return db.query.imports.findMany({
 		where: eq(imports.userId, userId),
+		with: {
+			badServer: {
+				columns: {
+					name: true,
+					type: true,
+				},
+			},
+		},
+	});
+}
+
+/**
+ * Find all imports by the user ids
+ * @param userIds - The IDs of the users
+ * @returns The import objects
+ */
+export async function findAllImportsByMultiUserId(userIds: string[]) {
+	return db.query.imports.findMany({
+		where: inArray(imports.userId, userIds),
 		with: {
 			badServer: {
 				columns: {

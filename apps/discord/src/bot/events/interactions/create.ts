@@ -8,23 +8,41 @@ import type { Interaction, logger } from "@discordeno/bot";
 import chalk from "chalk";
 import { bot } from "../../bot.js";
 import { checkUserAdminEmbed } from "../../commands/admin/checkUserAdmin.js";
+import { multiCheckUserAdminEmbed } from "../../commands/admin/multiCheckUserAdmin.js";
 
 bot.events.interactionCreate = async (interaction) => {
+	// Check if the interaction is a button interaction
 	if (
 		interaction.type === InteractionTypes.MessageComponent &&
 		interaction.data?.componentType === MessageComponentTypes.Button
 	) {
-		if (!interaction.data?.customId?.startsWith("checkuseradmin-")) return;
 		if (!interaction.guildId || !interaction.member) return;
-		const direction = interaction.data.customId.split("-")[1];
-		const interactionId = interaction.data.customId.split("-")[2];
-		const userId = interaction.data.customId.split("-")[3];
-		checkUserAdminEmbed(
-			interaction as unknown as Interaction,
-			userId,
-			interactionId,
-			direction,
-		);
+
+		if (interaction.data?.customId?.startsWith("checkuseradmin-")) {
+			// checkuseradmin
+			const direction = interaction.data.customId.split("-")[1];
+			const interactionId = interaction.data.customId.split("-")[2];
+			const userId = interaction.data.customId.split("-")[3];
+			return checkUserAdminEmbed(
+				interaction as unknown as Interaction,
+				userId,
+				interactionId,
+				direction,
+			);
+		}
+
+		if (interaction.data?.customId?.startsWith("multicheckuseradmin-")) {
+			// multicheckuseradmin
+			const direction = interaction.data.customId.split("-")[1];
+			const interactionId = interaction.data.customId.split("-")[2];
+			return multiCheckUserAdminEmbed(
+				interaction as unknown as Interaction,
+				interactionId,
+				direction,
+			);
+		}
+
+		return;
 	}
 
 	const isAutocomplete =

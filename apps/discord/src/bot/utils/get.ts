@@ -1,8 +1,9 @@
 import {
+	findAllImportsByMultiUserId,
 	findAllImportsByUserId,
 	findAllImportsByUserIdNotAppealed,
 } from "@warden/database";
-import { findUserById } from "@warden/database";
+import { findUserById, findUserByIds } from "@warden/database";
 
 export interface User {
 	id: string;
@@ -50,5 +51,37 @@ export const getUser = async (
 	}
 
 	data = { user: user as User, imports };
+	return data;
+};
+
+export const getUsers = async (userIds: string[]): Promise<UserData[]> => {
+	const data: UserData[] = [];
+	const users = await findUserByIds(userIds);
+	if (!Array.isArray(users) || users.length === 0) {
+		return data;
+	}
+
+	const imports = await findAllImportsByMultiUserId(userIds);
+
+	const importsByUserId = imports.reduce(
+		(acc, item) => {
+			if (item.userId) {
+				if (!acc[item.userId]) {
+					acc[item.userId] = [];
+				}
+				acc[item.userId].push(item as ImportItem);
+			}
+			return acc;
+		},
+		{} as Record<string, ImportItem[]>,
+	);
+
+	for (const user of users) {
+		data.push({
+			user: user as User,
+			imports: importsByUserId[user.id] || [],
+		});
+	}
+
 	return data;
 };
