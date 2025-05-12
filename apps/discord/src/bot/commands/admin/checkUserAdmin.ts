@@ -1,7 +1,7 @@
 import { MessageComponentTypes } from "@discordeno/bot";
 import type { Interaction } from "@discordeno/bot";
 import type { User } from "@discordeno/bot";
-import { countNotesByUserId } from "database/dist/index.js";
+import { countNotesByUserId } from "@warden/database";
 import { bot } from "../../bot.js";
 import createCommand from "../../commands.js";
 import { deleteValue, getValue, setValue } from "../../redis/redis-client.js";

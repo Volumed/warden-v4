@@ -1,14 +1,13 @@
-import { countBadServers, countBlacklistedUsers } from "database/dist/index.js";
+import { countBadServers, countBlacklistedUsers } from "@warden/database";
 import { STATUS_CHANNEL_ID } from "../../config.js";
 import { bot } from "../bot.js";
 import embedBuilder from "../utils/embed.js";
 
 let previousBlacklistedUsers = 0;
-let lastUpdateTime = Date.now();
 
 export const startTime = Date.now();
 
-const statusEmbed = async () => {
+const statusEmbed = async (lastUpdateTime: number) => {
 	const totalShards = bot.gateway.shards.size;
 	const bearerToken = bot.rest.token;
 	const getGuilds = bot.helpers.getGuilds(bearerToken);
@@ -59,20 +58,21 @@ const updateStatus = async () => {
 		return;
 	}
 
+	const lastUpdateTime = Date.now();
+
 	try {
 		const messages = await bot.helpers.getMessages(STATUS_CHANNEL_ID, {
 			limit: 1,
 		});
 		if (messages.length > 0) {
 			await bot.helpers.editMessage(STATUS_CHANNEL_ID, messages[0].id, {
-				embeds: [await statusEmbed()],
+				embeds: [await statusEmbed(lastUpdateTime)],
 			});
 		} else {
 			await bot.helpers.sendMessage(STATUS_CHANNEL_ID, {
-				embeds: [await statusEmbed()],
+				embeds: [await statusEmbed(lastUpdateTime)],
 			});
 		}
-		lastUpdateTime = Date.now(); // Update the last update time after a successful update
 	} catch (error) {
 		if (error instanceof Error) {
 			bot.logger.error(`Failed to update status: ${error.message}`);

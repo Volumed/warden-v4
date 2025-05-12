@@ -1,8 +1,8 @@
 import {
 	findAllImportsByUserId,
 	findAllImportsByUserIdNotAppealed,
-} from "database/dist/index.js";
-import { findUserById } from "database/dist/index.js";
+} from "@warden/database";
+import { findUserById } from "@warden/database";
 
 export interface User {
 	id: string;

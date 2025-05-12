@@ -1,5 +1,5 @@
 import { snowflakeToTimestamp } from "@discordeno/bot";
-import { checkDbConnection } from "database/dist/index.js";
+import { checkDbConnection } from "@warden/database";
 import { getShardInfoFromGuild } from "../../bot.js";
 import createCommand from "../../commands.js";
 import { checkRedisHealth } from "../../redis/redis-client.js";

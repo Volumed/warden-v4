@@ -24,7 +24,7 @@
 		"@influxdata/influxdb-client": "^1.35.0",
 		"amqplib": "^0.10.5",
 		"chalk": "^5.4.1",
-		"database": "workspace:*",
+		"@warden/database": "workspace:*",
 		"dotenv": "^16.4.7",
 		"fastify": "^5.3.2",
 		"redis": "^5.0.0"

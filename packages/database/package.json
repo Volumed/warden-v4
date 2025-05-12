@@ -1,11 +1,15 @@
 {
-	"name": "database",
+	"name": "@warden/database",
 	"scripts": {
 		"push": "npx drizzle-kit push",
 		"generate": "npx drizzle-kit generate",
 		"migrate": "npx drizzle-kit migrate",
 		"seed": "node dist/seed.js",
 		"build": "tsc"
+	},
+	"exports": {
+		"import": "./dist/index.js",
+		"types": "./dist/index.d.ts"
 	},
 	"dependencies": {
 		"dotenv": "catalog:",
