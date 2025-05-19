@@ -31,6 +31,7 @@ createCommand({
 			interaction as unknown as Interaction,
 			userId,
 		);
+		if (Array.isArray(result) && result.length === 0) return;
 
 		if (
 			!result ||

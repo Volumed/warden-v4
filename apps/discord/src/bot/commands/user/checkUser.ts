@@ -5,9 +5,10 @@ import createCommand from "../../commands.js";
 import { en } from "../../locales/index.js";
 import embedBuilder from "../../utils/embed.js";
 import { formatStatus } from "../../utils/format-status.js";
-import { formatUserTypes } from "../../utils/format-user.js";
+import { formatUserType, formatUserTypes } from "../../utils/format-user.js";
 import { getUser } from "../../utils/get.js";
 import type { UserData } from "../../utils/get.js";
+import type { Import } from "../admin/checkUserAdmin.js";
 
 export const checkUserHandler = async (
 	interaction: Interaction,
@@ -91,7 +92,12 @@ export const checkUserHandler = async (
 	}
 
 	const descriptions = en as Record<string, string>;
-	const types = formatUserTypes(userData.imports);
+	const types = userData.imports
+		? formatUserTypes([
+				...userData.imports,
+				{ ...userData.imports[0], type: userData.user.type as Import["type"] },
+			])
+		: formatUserType(userData.user.type);
 
 	const fields = [
 		{
@@ -101,8 +107,8 @@ export const checkUserHandler = async (
 		},
 		{
 			inline: true,
-			name: "Types:",
-			value: `\`\`${types.join(", ")}\`\``,
+			name: `Type${Array.isArray(types) && types.length > 1 ? "s" : ""}:`,
+			value: `\`\`${Array.isArray(types) ? types.join(", ") : types}\`\``,
 		},
 	];
 

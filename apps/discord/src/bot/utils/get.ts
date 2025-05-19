@@ -8,6 +8,7 @@ import { findUserById, findUserByIds } from "@warden/database";
 export interface User {
 	id: string;
 	status: string;
+	type: string;
 }
 
 export interface ImportItem {

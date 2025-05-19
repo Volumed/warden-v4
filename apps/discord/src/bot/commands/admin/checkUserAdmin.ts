@@ -60,11 +60,12 @@ export const checkUserAdminHandler = async (
 			"Check User",
 			`❌ An error occurred while fetching <@${userId}>.\n > Please try again later.`,
 		);
-		return interaction.respond({ embeds: [embed] }, { isPrivate: true });
+		interaction.respond({ embeds: [embed] }, { isPrivate: true });
+		return [];
 	}
 
 	if (fetchUser.toggles && fetchUser.toggles.bitfield === 1) {
-		return interaction.respond(
+		interaction.respond(
 			{
 				embeds: [
 					embedBuilder(
@@ -76,6 +77,7 @@ export const checkUserAdminHandler = async (
 			},
 			{ isPrivate: true },
 		);
+		return [];
 	}
 
 	const userData: UserData | undefined = await getUser(userId, true).catch(
@@ -98,25 +100,34 @@ export const checkUserAdminHandler = async (
 	);
 
 	if (!userData || !userData.user) {
-		return interaction.respond({ embeds: [notBlacklistedEmbed] });
+		interaction.respond({ embeds: [notBlacklistedEmbed] });
+		return [];
+	}
+
+	if (userData.user.status === "WHITELISTED") {
+		const whitelistedEmbed = embedBuilder(
+			"info",
+			"Check User",
+			`✅ <@${userId}> is whitelisted.\n`,
+		);
+		interaction.respond({ embeds: [whitelistedEmbed] });
+		return [];
 	}
 
 	if (
 		userData.user.status !== "BLACKLISTED" &&
 		userData.user.status !== "PERM_BLACKLISTED"
 	) {
-		return interaction.respond({ embeds: [notBlacklistedEmbed] });
+		interaction.respond({ embeds: [notBlacklistedEmbed] });
+		return [];
 	}
 
-	if (userData.imports && userData.imports.length === 0) {
-		// @TODO: appeal user
-	}
-
-	if (!userData.imports || userData.imports.length === 0) {
-		return interaction.respond({ embeds: [notBlacklistedEmbed] });
-	}
-
-	const types = formatUserTypes(userData.imports);
+	const types = userData.imports
+		? formatUserTypes([
+				...userData.imports,
+				{ ...userData.imports[0], type: userData.user.type as Import["type"] },
+			])
+		: formatUserType(userData.user.type);
 
 	const fields = [
 		{
@@ -126,8 +137,8 @@ export const checkUserAdminHandler = async (
 		},
 		{
 			inline: true,
-			name: "Types:",
-			value: `\`\`${types.join(", ")}\`\``,
+			name: `Type${Array.isArray(types) && types.length > 1 ? "s" : ""}:`,
+			value: `\`\`${Array.isArray(types) ? types.join(", ") : types}\`\``,
 		},
 	];
 
@@ -135,6 +146,17 @@ export const checkUserAdminHandler = async (
 		bot.logger.error("Error fetching user notes", error);
 		return 0;
 	});
+
+	if (!userData.imports || userData.imports.length === 0) {
+		const noImportsEmbed = embedBuilder(
+			"warning",
+			"Check User",
+			`⚠️ <@${userId}> is blacklisted. There are no imports found. Check history or ask management.`,
+			fields,
+		);
+		interaction.respond({ embeds: [noImportsEmbed] });
+		return [];
+	}
 
 	return {
 		fields,
@@ -434,6 +456,7 @@ createCommand({
 			interaction as unknown as Interaction,
 			userId,
 		);
+		if (Array.isArray(result) && result.length === 0) return;
 
 		if (
 			!result ||

@@ -1,4 +1,3 @@
-import { snowflakeToTimestamp } from "@discordeno/bot";
 import { checkDbConnection } from "@warden/database";
 import { getShardInfoFromGuild } from "../../bot.js";
 import createCommand from "../../commands.js";
@@ -8,7 +7,6 @@ createCommand({
 	name: "ping",
 	description: "🏓 Check whether the bot is online and responsive.",
 	async run(interaction) {
-		const ping = Date.now() - snowflakeToTimestamp(interaction.id);
 		const shardInfo = await getShardInfoFromGuild(interaction.guildId);
 		const dbConnection = await checkDbConnection();
 		const redisHealth = await checkRedisHealth();
@@ -28,7 +26,7 @@ createCommand({
 				: "Some services are experiencing issues.";
 
 		await interaction.respond(
-			`🏓 Pong! Gateway Latency: ${shardPing}, Roundtrip Latency: ${ping}ms, Database Status: ${dbStatus}, Redis Status: ${redisStatus}. ${overallStatus}`,
+			`🏓 Pong! Gateway Latency: ${shardPing}, Database Status: ${dbStatus}, Redis Status: ${redisStatus}. ${overallStatus}`,
 		);
 	},
 });

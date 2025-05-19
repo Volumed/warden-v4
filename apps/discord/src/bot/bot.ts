@@ -1,4 +1,4 @@
-import { Collection, LogDepth, createBot, type logger } from "@discordeno/bot";
+import { Collection, createBot, type logger } from "@discordeno/bot";
 import {
 	DISCORD_TOKEN,
 	GATEWAY_AUTHORIZATION,
@@ -113,8 +113,6 @@ const getAvatarHash = async () => {
 };
 
 export const botAvatarHash = await getAvatarHash();
-
-(bot.logger as typeof logger).setDepth(LogDepth.Full);
 
 bot.commands = new Collection();
 
